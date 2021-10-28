@@ -1,0 +1,19 @@
+{
+  "name": "harvest-hours",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cb": "^0.1.0",
+    "dotenv": "^6.2.0",
+    "harvest": "^1.0.11",
+    "harvest-v2": "^3.0.0",
+    "moment": "^2.29.1",
+    "moment-weekday-calc": "^1.1.4"
+  }
+}
