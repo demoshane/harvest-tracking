@@ -8,3 +8,6 @@ Instructions
 
 Other companies that Wunder.
 - Edit lib/harvest.js and change subdomain.
+
+Note:
+I run this with node version v12.22.0. You can use nvm (node version manager) to switch between node versions and of course have node installed.
