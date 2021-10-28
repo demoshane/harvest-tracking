@@ -58,7 +58,7 @@ async function main() {
     console.log('Total hours marked in Harvest: ' + total_adjusted);
     // Show how many hours has been marked as balance from last year.
     console.log(
-      `Last year overtime hours transferred to quota: ${overtime_hours_from_last_year}`
+      `Last year under- or overtime hours transferred to quota: ${overtime_hours_from_last_year}`
     );
     // Has there been any paid overtime? If so show this, but this is deducted from overtime as it's paid.
     console.log(
