@@ -13,6 +13,8 @@ const dayLength = 7.5;
 const start_date = '2021-01-01';
 // End date. To what date calculate hourly balance.
 const end_date = '2021-10-27';
+// Mark here if you have spent unpaid hours. Those should not get deducted from balance as they're not paid.
+const unpaidHours = 0;
 
 // You can mark if you have balance from previous year(s) to be transferred here. It will be taken into account in calculation.
 // However if you want to see your current year's balance. Have this as 0.
@@ -67,7 +69,7 @@ async function main() {
 
     // Calculate balance.
     const diff =
-      total_adjusted - shouldBe - paid_overtime_hours + overtime_hours_from_last_year;
+      total_adjusted - shouldBe - paid_overtime_hours + overtime_hours_from_last_year + unpaidHours;
     const diffWithoutBalance =
       diff - overtime_hours_from_last_year;
     // Show balance in hrs.
