@@ -66,6 +66,11 @@ async function main() {
     console.log(
       `Paid overtime hours: ${paid_overtime_hours}`
     );
+    // Has there been any unpaid overtime? Show this but this should be added to balance as it's unpaid and agreed balance.
+    console.log(
+      `Unpaid absence hours: ${unpaidHours}`
+    );
+
 
     // Calculate balance.
     const diff =
