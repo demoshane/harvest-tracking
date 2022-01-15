@@ -1,10 +1,10 @@
 {
   "name": "harvest-hours",
   "version": "1.0.0",
-  "description": "",
+  "description": "Calculate your Harvest overtime/undertime hours",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "calc": "node index.js"
   },
   "author": "",
   "license": "ISC",
