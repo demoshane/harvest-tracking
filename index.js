@@ -9,15 +9,9 @@ const user_id = process.env.HARVEST_USER_ID;
 const start_date = process.env.HARVEST_DATE_START;
 const end_date = process.env.HARVEST_DATE_END;
 const unpaidHours = parseInt(process.env.HARVEST_UNPAID ? process.env.HARVEST_UNPAID : 0);
+const overtime_hours_from_last_year = parseInt(process.env.HARVEST_OVERTIME_LAST_YEAR ? process.env.HARVEST_OVERTIME_LAST_YEAR : 0);
+const paid_overtime_hours = parseInt(process.env.HARVEST_PAID_OVERTIME ? process.env.HARVEST_PAID_OVERTIME : 0);
 const dayLength = parseInt(process.env.HARVEST_DAY_LENGTH ? process.env.HARVEST_DAY_LENGTH : 7.5);
-
-// You can mark if you have balance from previous year(s) to be transferred here. It will be taken into account in calculation.
-// However if you want to see your current year's balance. Have this as 0.
-const overtime_hours_from_last_year = 99.47;
-
-// If you have been paid for extra hours. Those should not be included as those don't belong "twice" to your total. Mark them here.
-const paid_overtime_hours = 0;
-// SETUP ENDS.
 
 async function main() {
   try {
