@@ -11,7 +11,7 @@ const end_date = process.env.HARVEST_DATE_END;
 const unpaidHours = parseInt(process.env.HARVEST_UNPAID ? process.env.HARVEST_UNPAID : 0);
 const overtime_hours_from_last_year = parseInt(process.env.HARVEST_OVERTIME_LAST_YEAR ? process.env.HARVEST_OVERTIME_LAST_YEAR : 0);
 const paid_overtime_hours = parseInt(process.env.HARVEST_PAID_OVERTIME ? process.env.HARVEST_PAID_OVERTIME : 0);
-const dayLength = parseInt(process.env.HARVEST_DAY_LENGTH ? process.env.HARVEST_DAY_LENGTH : 7.5);
+const dayLength = parseFloat(process.env.HARVEST_DAY_LENGTH ? process.env.HARVEST_DAY_LENGTH : 7.5);
 
 async function main() {
   try {
