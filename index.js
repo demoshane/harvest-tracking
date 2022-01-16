@@ -6,8 +6,8 @@ require('moment-weekday-calc');
 
 // SETUP - see .env_example and copy it to a .env file.
 const user_id = process.env.HARVEST_USER_ID;
-const start_date = process.env.HARVEST_DATE_START;
-const end_date = process.env.HARVEST_DATE_END;
+const start_date = process.env.HARVEST_DATE_START ? process.env.HARVEST_DATE_START : new Date().getFullYear() + '-01-01';
+const end_date = process.env.HARVEST_DATE_END ? process.env.HARVEST_DATE_END : new Date().toISOString().split('T')[0];
 const unpaidHours = parseInt(process.env.HARVEST_UNPAID ? process.env.HARVEST_UNPAID : 0);
 const overtime_hours_from_last_year = parseInt(process.env.HARVEST_OVERTIME_LAST_YEAR ? process.env.HARVEST_OVERTIME_LAST_YEAR : 0);
 const paid_overtime_hours = parseInt(process.env.HARVEST_PAID_OVERTIME ? process.env.HARVEST_PAID_OVERTIME : 0);
