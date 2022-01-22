@@ -1,22 +1,33 @@
 // Load lib.
 const harvest = require('./lib/harvest');
+const argv = require('minimist')(process.argv.slice(2));
+const validator = require('validator');
 // Use moment for weekday calculations. TODO: Probably need to replace this for something better later on.
 moment = require('moment');
 require('moment-weekday-calc');
 
 // SETUP - see .env_example and copy it to a .env file.
 const user_id = process.env.HARVEST_USER_ID;
-const start_date = process.env.HARVEST_DATE_START ? process.env.HARVEST_DATE_START : new Date().getFullYear() + '-01-01';
-const end_date = process.env.HARVEST_DATE_END ? process.env.HARVEST_DATE_END : new Date().toISOString().split('T')[0];
+let date_from = process.env.HARVEST_DATE_FROM ? process.env.HARVEST_DATE_FROM : new Date().getFullYear() + '-01-01';
+let date_to = process.env.HARVEST_DATE_TO ? process.env.HARVEST_DATE_TO : new Date().toISOString().split('T')[0];
 const unpaidHours = parseInt(process.env.HARVEST_UNPAID ? process.env.HARVEST_UNPAID : 0);
 const overtime_hours_from_last_year = parseInt(process.env.HARVEST_OVERTIME_LAST_YEAR ? process.env.HARVEST_OVERTIME_LAST_YEAR : 0);
 const paid_overtime_hours = parseInt(process.env.HARVEST_PAID_OVERTIME ? process.env.HARVEST_PAID_OVERTIME : 0);
 const dayLength = parseFloat(process.env.HARVEST_DAY_LENGTH ? process.env.HARVEST_DAY_LENGTH : 7.5);
 
+// Check for from/to dates if user passed arguments.
+if (Object.keys(argv).length > 1) {
+  date_from = (argv['from']) ? getValidDate(argv['from']) : date_from;
+  date_to = (argv['to']) ? getValidDate(argv['to']) : date_to;
+  if (!date_from || !date_to) {
+    return false;
+  }
+}
+
 async function main() {
   try {
     // Mon-Fri.
-    const totalWorkdays = moment().isoWeekdayCalc(start_date, end_date, [
+    const totalWorkdays = moment().isoWeekdayCalc(date_from, date_to, [
       1,
       2,
       3,
@@ -24,7 +35,7 @@ async function main() {
       5
     ]);
     console.log('(calculating worktime balance...)');
-    console.log('TIMEFRAME'+'\n'+`Period: ${start_date} - ${end_date}`);
+    console.log('TIMEFRAME'+'\n'+`Period: ${date_from} - ${date_to}`);
     console.log('\n'+'STATISTICS')
     // Output how many weekdays on period.
     console.log('Weekdays (Mon-Fri) so far for given period: ' + totalWorkdays);
@@ -40,7 +51,7 @@ async function main() {
     );
 
     // Get user entries from Harvest for the period.
-    const entries = await harvest.getUserEntries(user_id, start_date, end_date);
+    const entries = await harvest.getUserEntries(user_id, date_from, date_to);
     // Calculate how many hours has been done.
     const total = entries.reduce((sum, dayEntry) => sum + dayEntry.hours, 0);
     // Set total.
@@ -81,3 +92,14 @@ async function main() {
 }
 
 main();
+
+
+function getValidDate(dateStr) {
+  if (validator.isDate(dateStr)) {
+    return dateStr;
+  }
+  else {
+    console.log('Invalid date input "' + dateStr + '"');
+    return false
+  }
+}
