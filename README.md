@@ -1,13 +1,21 @@
-Instructions
-- Enter your credentials to file: .env
-- Update index<year>.js and follow instruction on top of the file.
-  - User ID, Period range, hourly balance, if you have paid overtime hours during the period (That are marked in Harvest and therefore should be deducted from total balance calculation!)
-- run the script: node index<year>.js
-- ...
-- profit.
+# Harvest tracking
 
-Other companies that Wunder.
-- Edit lib/harvest.js and change subdomain.
+A nodejs tool to track Harvest time for an overview of logged hours balance.
 
-Note:
-I run this with node version v12.22.0. You can use nvm (node version manager) to switch between node versions and of course have node installed.
+![Screenshot of harvest-tracking npm run calc command](img/harvest-tracking.png)
+
+## Instructions
+
+- Copy `.env.example` as `.env`
+  - Modify as needed, comments in the file should explain
+- Install dependencies `npm i`
+  - Works at least with node versions `12` and `14`,
+    node version `16` fails due to [harvest](https://www.npmjs.com/package/harvest) (deprecated v1) lib.
+- Run the script: `npm run calc`
+  - Without parameters the balance is checked from the first day of current year to current date
+  - The dates can be adjusted with `from` and/or `to` arguments using format `YYYY-MM-DD`
+    - e.g. `npm run calc -- --from=2022-02-01 --to=2022-02-28`
+
+## TODO
+* Change [harvest](https://www.npmjs.com/package/harvest) to version 2
+* Update all libraries
